@@ -26,7 +26,7 @@ int main()
     int Q;
     cin >> Q;
 
-    vector<string> res;
+    vector<string> res(Q);
 
     for (int j = 0; j < Q; j++)
     {
@@ -38,6 +38,7 @@ int main()
 
         res.push_back(to_string(A) + " " + to_string(B));
     }
+
     for (size_t i = 0; i < res.size(); i++)
     {
         cout << res[i] << endl;
