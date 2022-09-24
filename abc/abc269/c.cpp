@@ -1,33 +1,23 @@
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
-#include <sstream>
-#include <bitset>
 
 using namespace std;
 
 int main()
 {
-
     long long N;
     cin >> N;
 
-    stringstream ss;
-    ss << std::bitset<60>(N);
-
-    string b = ss.str();
-    // cout << b << endl;
-
-    // int c = count(b.cbegin(), b.cend(), '1');
-
-    string res(60, '0');
+    long long res = 0;
 
     int c = 0;
     vector<int> digit;
-    for (int i = b.length() - 1; i >= 0; i--)
+    for (int i = 0; i < 60; i++)
     {
-        if (b[i] == '1')
+        if (((N >> i) & 1) == 1)
         {
+            // cout << "i=" << i << endl;
             digit.push_back(i);
             c++;
         }
@@ -38,19 +28,16 @@ int main()
 
     for (int bit = 0; bit < (1 << c); bit++)
     {
+        res = 0;
         for (int i = 0; i < c; i++)
         {
             if (bit & (1 << i))
             {
-                res[digit[i]] = '1';
-            }
-            else
-            {
-                res[digit[i]] = '0';
+                res |= (1LL << digit[i]);
             }
         }
         // cout << res << endl;
-        cout << stoll(res, nullptr, 2) << endl;
+        cout << res << endl;
     }
 
     return 0;
