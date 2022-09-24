@@ -40,6 +40,9 @@ void rotate_r(vector<int> &a, int s, int e)
     a[e] = t;
 }
 
+/// @brief 順列を生成します。
+/// @param a
+/// @param l
 void permutation(vector<int> &a, int l)
 {
     if (l == a.size() - 1)
@@ -51,6 +54,8 @@ void permutation(vector<int> &a, int l)
     for (int i = l; i < a.size(); i++)
     {
         swap(a[l], a[i]);
+
+        // rotate の場合は、辞書式順に順列生成
         // rotate(a, l, i);
 
         permutation(a, l + 1);
