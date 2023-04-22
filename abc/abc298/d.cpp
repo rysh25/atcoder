@@ -3,17 +3,32 @@
 
 using namespace std;
 
+constexpr int MOD = 998244353;
+
+template <typename T>
+T fpow(int x, T n, int m)
+{
+    T ret = 1;
+    x %= m;
+    while (n > 0)
+    {
+        if (n & 1)
+            ret = (ret * x) % m;
+        x = (x * x) % m;
+        n >>= 1;
+    }
+    return ret;
+}
+
 int main()
 {
     int Q;
 
     cin >> Q;
 
-    int MOD = 998244353;
     deque<int> S = {1};
 
-    long long current_sum = 1;
-    long long base = 1;
+    long long sum = 1;
 
     for (int i = 0; i < Q; i++)
     {
@@ -24,19 +39,21 @@ int main()
         {
             cin >> x;
             S.push_back(x);
-            base = (base * 10) % MOD;
-            current_sum = (current_sum * 10 + x * base) % MOD;
+
+            sum = ((sum * 10) + x) % MOD;
+            // cout << "q=" << q << ", sum: " << sum << endl;
         }
         else if (q == 2)
         {
-            int removed = S.front();
+            sum = ((sum - ((S.front() * fpow(10, (int)S.size() - 1, MOD)) % MOD)) % MOD + MOD) % MOD;
+            // sum = (sum - (S.front() * fpow(10, S.size() - 1, MOD)) % MOD + MOD) % MOD;
+            // cout << "q=" << q << ", sum: " << sum << endl;
+
             S.pop_front();
-            current_sum = (current_sum - removed * base + MOD) % MOD;
-            base = (base * (MOD + 1) / 10) % MOD;
         }
         else
         {
-            cout << current_sum << endl;
+            cout << sum % MOD << endl;
         }
     }
 
