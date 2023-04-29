@@ -5,11 +5,10 @@ using namespace std;
 
 constexpr int MOD = 998244353;
 
-template <typename T>
-T fpow(int x, T n, int m)
+long long fpow(long long x, long long n, long long m)
 {
-    T ret = 1;
-    x %= m;
+    long long ret = 1;
+    x = x % m;
     while (n > 0)
     {
         if (n & 1)
@@ -30,6 +29,7 @@ int main()
 
     long long sum = 1;
 
+    bool debug = false;
     for (int i = 0; i < Q; i++)
     {
         int q, x;
@@ -38,18 +38,20 @@ int main()
         if (q == 1)
         {
             cin >> x;
+
             S.push_back(x);
 
-            sum = ((sum * 10) + x) % MOD;
+            sum = (((sum * 10) + x) % MOD + MOD) % MOD;
             // cout << "q=" << q << ", sum: " << sum << endl;
         }
         else if (q == 2)
         {
-            sum = ((sum - ((S.front() * fpow(10, (int)S.size() - 1, MOD)) % MOD)) % MOD + MOD) % MOD;
+            int x = S.front();
+            S.pop_front();
+            int size = S.size();
+            sum = ((sum - (fpow(10, size, MOD) * x % MOD)) % MOD + MOD) % MOD;
             // sum = (sum - (S.front() * fpow(10, S.size() - 1, MOD)) % MOD + MOD) % MOD;
             // cout << "q=" << q << ", sum: " << sum << endl;
-
-            S.pop_front();
         }
         else
         {
