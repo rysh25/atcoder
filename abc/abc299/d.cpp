@@ -8,27 +8,24 @@ int main()
 
     cin >> N;
 
-    string prev = "0";
+    int l = 1;
+    int r = N;
 
-    for (int i = 2; i <= 22 || i <= N; i++)
+    while (r - l > 1)
     {
-        cout << "? " << i << endl;
+        int m = l + (r - l) / 2;
+        cout << "? " << m << endl;
 
-        string S;
-        cin >> S;
+        int p;
+        cin >> p;
 
-        if (i == N - 1 && S == "0")
-        {
-            cout << "! " << i << endl;
-            return 0;
-        }
-        else if (S != prev)
-        {
-            cout << "! " << i - 1 << endl;
-            return 0;
-        }
-        prev = S;
+        if (p == 0)
+            l = m;
+        else
+            r = m;
     }
+
+    cout << "! " << l << endl;
 
     return 0;
 }
