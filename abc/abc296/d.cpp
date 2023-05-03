@@ -1,30 +1,30 @@
 #include <iostream>
-#include <algorithm>
+#include <cmath>
 
 using namespace std;
 
-long long find_minimum_x(long long n, long long m)
-{
-    long long min_x = n * n + 1;
-
-    for (long long a = 1; a <= n; ++a)
-    {
-        long long b = (m + a - 1) / a;
-        if (1 <= b && b <= n)
-        {
-            min_x = min(min_x, a * b);
-        }
-    }
-
-    return min_x <= n * n ? min_x : -1;
-}
-
 int main()
 {
-    long long n, m;
-    cin >> n >> m;
+    long long N, M;
+    cin >> N >> M;
 
-    cout << find_minimum_x(n, m) << endl;
+    const long long INF = 1e18;
+    long long ans = INF;
+
+    for (long long a = 1; a * a - a <= M; a++)
+    {
+        long long b = (M + a - 1) / a; // 切り上げ
+        // cout << "a=" << a << ", b=" << b << ", M/a=" << (M + a - 1) / a << endl;
+        if (a > N || b > N)
+            continue;
+
+        ans = min(ans, a * b);
+    }
+
+    if (ans == INF)
+        cout << -1 << endl;
+    else
+        cout << ans << endl;
 
     return 0;
 }
