@@ -4,37 +4,21 @@
 
 using namespace std;
 
-using ll = long long;
-
-vector<ll> calc_a(int N)
+long long f(int x)
 {
-    vector<ll> a(N, 0);
-    for (int i = 1; i < N; ++i)
+    long long res = 0;
+    for (int i = 1; i * i <= x; i++)
     {
-        a[i] = 1LL * N * i / (N - i);
+        if (x % i != 0)
+            continue;
+        int j = x / i;
+        if (i == j)
+            res++;
+        else
+            res += 2;
     }
-    return a;
-}
 
-int count_pairs(int N)
-{
-    int count = 0;
-    auto a = calc_a(N);
-    for (int D = 1; D < N; ++D)
-    {
-        for (int C = D + 1; C < N; ++C)
-        {
-            ll minB = max((ll)N - C * D - 1, (ll)1);
-            ll maxB = (ll)C - 1;
-            if (minB <= maxB)
-            {
-                auto it1 = lower_bound(a.begin(), a.end(), minB);
-                auto it2 = upper_bound(a.begin(), a.end(), maxB);
-                count += distance(it1, it2);
-            }
-        }
-    }
-    return count;
+    return res;
 }
 
 int main()
@@ -43,7 +27,13 @@ int main()
 
     cin >> N;
 
-    cout << count_pairs(N) << endl;
+    long long ans = 0;
+    for (int x = 0; x < N; x++)
+    {
+        ans += f(x) * f(N - x);
+    }
+
+    cout << ans << endl;
 
     return 0;
 }
