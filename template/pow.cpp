@@ -3,12 +3,11 @@
 using namespace std;
 
 /**
- * @brief 累乗を素数で割った際の剰余を求めます。
+ * @brief 累乗をを求めます。
  *
  * @param a 累乗の底となる数値を指定します。
  * @param n 累乗の指数となる数値を指定します。
- * @param p 累乗の計算に使用する素数を指定します。
- * @return T 累乗を素数で割った際の剰余を返します。
+ * @return T 累乗をを返します。
  * @details
  * 繰り返し二乗法によって、累乗を計算します。
  *
@@ -22,20 +21,17 @@ using namespace std;
  * このように、指数を2の累乗の和で表現することで、
  * 累乗の計算を高速化することができます。
  *
- * オーバーフローが発生することを防ぐために、
- * 計算途中で剰余を取りながら計算を行います。
- *
  * Time complexity: O(log n)
  * Space complexity: O(1)
  */
-long long mod_pow(long long a, long long n, const long long &p)
+long long pow(long long a, long long n)
 {
     long long res = 1;
     while (n > 0)
     {
         if (n & 1)
-            res *= a % p; // 最下位ビットが 1 ならば (2で割り切れなければ) a^(2^i) を掛ける
-        a *= a % p;
+            res *= a; // 最下位ビットが 1 ならば (2で割り切れなければ) a^(2^i) を掛ける
+        a *= a;
         n >>= 1; // n を1bit 左にずらす
     }
     return res;
@@ -46,12 +42,12 @@ int main()
     long long N;
     cin >> N;
 
-    if (mod_pow(2LL, N, 1000000007LL) == 0)
+    if (pow(2LL, N) == 0)
         cout << "Yes" << endl;
     else
         cout << "No" << endl;
 
-    if (mod_pow(2LL, N, 998244353LL) == 0)
+    if (pow(2LL, N) == 0)
         cout << "Yes" << endl;
     else
         cout << "No" << endl;
