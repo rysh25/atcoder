@@ -3,36 +3,23 @@
 
 using namespace std;
 
-vector<bool> sieve_of_eratosthenes(int n)
+vector<int> sieve_of_eratosthenes(int n)
 {
-    vector<bool> is_prime(n + 1, true);
+    vector<bool> is_prime(n + 10, true);
+    vector<int> primes;
     is_prime[0] = false;
     is_prime[1] = false;
 
-    for (int i = 2; i * i <= n; ++i)
+    for (long long i = 2; i <= n; ++i)
     {
-        if (is_prime[i])
+        if (!is_prime[i])
+            continue;
+
+        primes.emplace_back(i);
+
+        for (long long j = i * i; j <= n; j += i)
         {
-            for (int j = i * i; j <= n; j += i)
-            {
-                is_prime[j] = false;
-            }
-        }
-    }
-
-    return is_prime;
-}
-
-vector<int> get_primes_up_to(int n)
-{
-    vector<bool> is_prime = sieve_of_eratosthenes(n);
-    vector<int> primes;
-
-    for (int i = 2; i <= n; ++i)
-    {
-        if (is_prime[i])
-        {
-            primes.push_back(i);
+            is_prime[j] = false;
         }
     }
 
@@ -44,48 +31,30 @@ int main()
     long long N;
     cin >> N;
 
-    int sqrt_n = static_cast<int>(sqrt(N) / 3);
-    // cout << "sqrt_n=" << sqrt_n << endl;
-    vector<int> primes = get_primes_up_to(sqrt_n);
-
-    // cout << "primes.size()=" << primes.size() << endl;
+    vector<int> primes = sieve_of_eratosthenes(1e6);
 
     long long count = 0;
 
-    for (int a : primes)
+    int m = primes.size();
+    for (int ai = 0; ai < m; ai++)
     {
-        if (a * a * 2 * 2 > N)
-        {
+        long long a = primes[ai];
+        if (a * a * a * a * a > N)
             break;
-        }
 
-        for (int b : primes)
+        for (int bi = ai + 1; bi < m; bi++)
         {
-            if (b <= a)
-            {
-                continue;
-            }
-
-            if (sqrt(N / static_cast<double>(a * a)) < b)
-            {
+            long long b = primes[bi];
+            if (a * a * b * b * b > N)
                 break;
-            }
 
-            for (int c : primes)
+            for (int ci = bi + 1; ci < m; ci++)
             {
-                if (c <= b)
-                {
-                    continue;
-                }
-
-                if (a * a * b * c * c <= N)
-                {
-                    ++count;
-                }
-                else
-                {
+                long long c = primes[ci];
+                if (a * a * b * c * c > N)
                     break;
-                }
+
+                count++;
             }
         }
     }

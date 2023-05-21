@@ -18,6 +18,12 @@ struct Eratosthenes
     vector<bool> is_prime;
 
     /**
+     * @brief 素数を格納する配列です。
+     *
+     */
+    vector<int> primes;
+
+    /**
      * @brief 素因数分解における最小の素数を格納するテーブルです。
      *
      */
@@ -39,8 +45,8 @@ struct Eratosthenes
      * 素数判定を行う数値の上限を n とすると、
      * n 以下の数値が素数かどうかを判定することができます。
      *
-     * Time complexity: O(n log log n)
-     * Space complexity: O(n)
+     * - Time complexity: O(n log log n)
+     * - Space complexity: O(n)
      */
     Eratosthenes(T n) : is_prime(n + 1, true),
                         min_factor(n + 1, -1),
@@ -51,18 +57,20 @@ struct Eratosthenes
         min_factor[1] = 1;
 
         // 篩
-        for (T p = 2; p <= n; ++p)
+        for (long long p = 2; p <= n; ++p)
         {
             // すでに合成数であるものはスキップする
             if (!is_prime[p])
                 continue;
+
+            primes.emplace_back(p);
 
             // p についての情報更新
             min_factor[p] = p;
             mobius[p] = -1;
 
             // p 以外の p の倍数から素数ラベルを剥奪
-            for (T q = p * 2; q <= n; q += p)
+            for (long long q = p * 2; q <= n; q += p)
             {
                 // q は合成数なのでふるい落とす
                 is_prime[q] = false;
@@ -99,8 +107,8 @@ struct Eratosthenes
      * 大量の数値を素因数分解する場合は、
      * エラトステネスの篩を用いた素因数分解が有効です。
      *
-     * Time complexity:　O(log n)
-     * Space complexity: O(log n)
+     * - Time complexity:　O(log n)
+     * - Space complexity: O(log n)
      */
     vector<pair<T, T>> factorize(T n)
     {
