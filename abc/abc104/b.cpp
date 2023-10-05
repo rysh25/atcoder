@@ -12,20 +12,20 @@ int main()
     int count_c = 0;
     int count_lower = 0;
 
-    for (int i = 0; i < S.length(); i++)
+    for (int i = 0; i < S.size(); i++)
     {
         if ('a' <= S[i] && S[i] <= 'z')
         {
             count_lower++;
         }
 
-        if (2 <= i && i <= S.length() - 2 && S[i] == 'C')
+        if (2 <= i && i <= S.size() - 2 && S[i] == 'C')
         {
             count_c++;
         }
     }
 
-    if (S[0] == 'A' && count_c == 1 && S.length() - count_lower == 2)
+    if (S[0] == 'A' && count_c == 1 && S.size() - count_lower == 2)
     {
         cout << "AC" << endl;
     }
