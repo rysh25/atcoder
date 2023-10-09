@@ -10,7 +10,9 @@
                 "-stdlib=libc++",
                 "-fsanitize=address",
                 "-fno-omit-frame-pointer",
+                "-O0",
                 "-g",
+                "--debug",
                 "${file}",
                 "-o",
                 "${fileDirname}/out/${fileBasenameNoExtension}"
@@ -37,6 +39,7 @@
                 "-fsanitize=undefined",
                 "-fsanitize=bounds",
                 "-fno-omit-frame-pointer",
+                "-O0",
                 "-g",
                 "${file}",
                 "-o",
