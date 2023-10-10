@@ -25,7 +25,7 @@ int main()
         cin >> a;
     }
 
-    sort(A.begin(), A.end(), greater<int>());
+    sort(A.rbegin(), A.rend());
 
     int alice = 0;
     int bob = 0;
@@ -33,13 +33,9 @@ int main()
     for (int i = 0; i < N; i++)
     {
         if (i % 2 == 0)
-        {
             alice += A[i];
-        }
         else
-        {
             bob += A[i];
-        }
     }
 
     cout << alice - bob << endl;
