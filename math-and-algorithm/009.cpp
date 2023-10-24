@@ -27,28 +27,22 @@ int main()
     vector<int> A(N);
     rep(i, N) cin >> A[i];
 
-    for (ll bit = 0; bit < (1LL << N); bit++)
+    vector<vector<bool>> dp(N + 1, vector<bool>(S + 1, false));
+    dp[0][0] = true;
+
+    for (int i = 1; i < N + 1; i++)
     {
-        // bitset<60> bs(bit);
-        // cout << bs << endl;
-
-        int sum = 0;
-        for (int i = 0; i < N; i++)
+        for (int j = 0; j < S + 1; j++)
         {
-            if (bit & (1LL << i))
-            {
-                sum += A[i];
-            }
-        }
-
-        if (sum == S)
-        {
-            cout << "Yes" << endl;
-            return 0;
+            // cout << "j=" << j << ",  i=" << i << endl;
+            if (j - A[i - 1] >= 0)
+                dp[i][j] = dp[i - 1][j] || dp[i - 1][j - A[i - 1]];
+            else
+                dp[i][j] = dp[i - 1][j];
         }
     }
 
-    cout << "No" << endl;
+    cout << (dp[N][S] ? "Yes" : "No") << endl;
 
     return 0;
 }
