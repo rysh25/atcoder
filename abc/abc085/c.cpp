@@ -25,7 +25,8 @@ int main()
         for (int b = 0; b <= N - a; b++)
         {
             int c = N - a - b;
-            if (10000 * a + 5000 * b + 1000 * c == Y)
+            if (0 <= c && c <= N &&
+                10000 * a + 5000 * b + 1000 * c == Y)
             {
                 cout << a << " " << b << " " << c << endl;
                 return 0;
