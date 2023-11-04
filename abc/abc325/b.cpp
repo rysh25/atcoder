@@ -18,11 +18,24 @@ using ll = long long;
 
 int main()
 {
-    string S, T;
-    cin >> S >> T;
+    int N;
+    cin >> N;
+    vector<int> T(24);
 
-    cout << S << " "
-         << "san" << endl;
+    rep(i, N)
+    {
+        int W, X;
+        cin >> W >> X;
+
+        for (int t = 9 + X; t < 18 + X; t++)
+        {
+            T[t % 24] += W;
+        }
+    }
+
+    sort(T.rbegin(), T.rend());
+
+    cout << T[0] << endl;
 
     return 0;
 }
