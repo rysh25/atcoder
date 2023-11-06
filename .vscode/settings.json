@@ -7,6 +7,29 @@
     "[cpp]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    // pythonの環境設定
+    "python.defaultInterpreterPath": "venv/bin/python",
+    "files.watcherExclude": {
+        "**/venv/**": true
+    },
+
+    // リンタの設定
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "flake8.args": [
+        "--config=${workspaceFolder}/.flake8"
+    ],
+    "python.linting.lintOnSave": true,
+    // フォーマッタの設定
+    "python.formatting.provider": "none",
+    "editor.formatOnPaste": false,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "files.associations": {
         "iostream": "cpp",
         "__bit_reference": "cpp",
@@ -98,6 +121,7 @@
         "iterator": "cpp",
         "utility": "cpp",
         "filesystem": "cpp",
-        "d": "cpp"
+        "d": "cpp",
+        "c": "cpp"
     }
 }
