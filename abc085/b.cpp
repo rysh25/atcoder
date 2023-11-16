@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <functional>
 #include <vector>
+#include <stack>
 #include <tuple>
 #include <queue>
 #include <set>
@@ -34,16 +35,16 @@ int main()
 
     cin >> N;
 
-    map<int, int> mp;
+    set<int> st;
 
-    rep(i, N)
+    for (int i = 0; i < N; i++)
     {
         int d;
         cin >> d;
-        mp[d]++;
+        st.emplace(d);
     }
 
-    cout << mp.size() << endl;
+    cout << st.size() << endl;
 
     return 0;
 }
